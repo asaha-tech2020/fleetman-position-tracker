@@ -82,6 +82,7 @@ public class LocalDevelopmentMessageSender
 		mapMessage.put("lat", position.getLat().toString());
 		mapMessage.put("long", position.getLongitude().toString());
 		mapMessage.put("time", format.format(position.getTimestamp()));
+		mapMessage.put("speed", position.getSpeed().toString());
 		template.convertAndSend(destination, mapMessage);
 	}
 }
