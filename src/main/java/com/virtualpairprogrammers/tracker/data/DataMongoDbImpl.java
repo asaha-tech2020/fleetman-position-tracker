@@ -28,12 +28,14 @@ public class DataMongoDbImpl implements Data {
 	
 	@Override
 	public void updatePosition(VehiclePosition position) {
+		System.out.println("Inside DataMongoDbImpl!!");
 		mongoDb.insert(position);
 	}
 
 	@Override
 	public VehiclePosition getLatestPositionFor(String vehicleName) throws VehicleNotFoundException {
 		// A *very* basic implementation!
+		System.out.println("Inside MongoImpl getLatestPositionFor ");
 		Example<VehiclePosition> example = Example.of(new VehicleBuilder().withName(vehicleName).build());
 		List<VehiclePosition> all = mongoDb.findAll(example);
 		if (all.size() == 0) throw new VehicleNotFoundException();
@@ -61,6 +63,7 @@ public class DataMongoDbImpl implements Data {
 
 	@Override
 	public Collection<VehiclePosition> getHistoryFor(String vehicleName) throws VehicleNotFoundException {
+		System.out.println("Inside MongoImpl getHistoryFor ");
 		VehiclePosition position = new VehicleBuilder().withName(vehicleName).build();
 		Example<VehiclePosition> example = Example.of(position);
 		return new TreeSet<VehiclePosition>(mongoDb.findAll(example)); // just a hack to sort correctly

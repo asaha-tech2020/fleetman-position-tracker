@@ -44,6 +44,7 @@ public class DataBasicInMemoryImpl implements Data
 	@Override
 	public void updatePosition(VehiclePosition data)
 	{
+		System.out.println("Inside DataBasicInMemoryImpl updatePosition!!");
 		String vehicleName = data.getName();
 		TreeSet<VehiclePosition> positions = positionDatabase.get(vehicleName);
 		if (positions == null) 
@@ -52,6 +53,7 @@ public class DataBasicInMemoryImpl implements Data
 			positionDatabase.put(vehicleName, positions);
 		}
 		BigDecimal speed = calculateSpeedInMph(vehicleName, data);
+		System.out.println("Inside DataBasicInMemoryImpl updatePosition speed is !!"+speed);
 		VehiclePosition vehicleWithSpeed = new VehicleBuilder().withVehiclePostion(data).withSpeed(speed).build();
 		positions.add(vehicleWithSpeed);
 	}
@@ -65,7 +67,8 @@ public class DataBasicInMemoryImpl implements Data
 	}
 	
 	private BigDecimal calculateSpeedInMph(String vehicleName, VehiclePosition newPosition)
-	{	
+	{
+		System.out.println("Inside DataBasicInMemoryImpl calculateSpeedInMph speed is !!");
 		TreeSet<VehiclePosition> positions = positionDatabase.get(vehicleName);
 		if (positions.isEmpty()) return null;
 		
@@ -87,6 +90,7 @@ public class DataBasicInMemoryImpl implements Data
 		
 		BigDecimal speedInMps = distanceInMetres.divide(timeInSeconds, RoundingMode.HALF_UP);
 		BigDecimal milesPerHour = speedInMps.multiply(MPS_TO_MPH_FACTOR);
+		System.out.println("Inside DataBasicInMemoryImpl calculateSpeedInMph speed is !!"+milesPerHour);
 		return milesPerHour;
 	}
 

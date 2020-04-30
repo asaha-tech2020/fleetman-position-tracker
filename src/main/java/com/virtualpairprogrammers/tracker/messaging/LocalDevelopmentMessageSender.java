@@ -50,7 +50,7 @@ public class LocalDevelopmentMessageSender
                     										.withLat(startLat)
                     										.withLng(startLng)
                     										.withTimestamp(new java.util.Date())
-															.withSpeed(new BigDecimal("47.5")).build();
+															.withSpeed(new BigDecimal(47.5)).build();
 			lastPositions[i]=testVehicle;
 			sendMessageToEmbeddedQueue(testVehicle);
 		}
@@ -67,11 +67,14 @@ public class LocalDevelopmentMessageSender
 		
 		BigDecimal newLat = lastPosition.getLat().add(new BigDecimal("" + randomChangeX));
 		BigDecimal newLng = lastPosition.getLongitude().add(new BigDecimal("" + randomChangeY));
+		BigDecimal speed = lastPosition.getSpeed();
+		System.out.println("newLat & newLang & speed" + newLat +" "+newLng+ " "+speed);
 		
 		VehiclePosition newPosition = new VehicleBuilder().withName(lastPosition.getName())
 				                                         .withLat(newLat)
 				                                         .withLng(newLng)
-				                                         .withTimestamp(new java.util.Date()).build();
+				                                         .withTimestamp(new java.util.Date())
+		                                                 .withSpeed(speed).build();
 		lastPositions[randomVehicleIndex] = newPosition;
 		sendMessageToEmbeddedQueue(lastPosition);
 	}

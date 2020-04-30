@@ -28,6 +28,7 @@ public class PositionReportsController
 	{
 		try
 		{
+			System.out.println("Inside getLatestReportForVehicle");
 			VehiclePosition position = data.getLatestPositionFor(vehicleName);
 			return new ResponseEntity<VehiclePosition>(position, HttpStatus.OK);
 		}
@@ -40,12 +41,14 @@ public class PositionReportsController
 	@RequestMapping(method=RequestMethod.GET, value="/history/{vehicleName}")
 	public Collection<VehiclePosition> getEntireHistoryForVehicle(@PathVariable String vehicleName) throws VehicleNotFoundException
 	{
+		System.out.println("Inside getEntireHistoryForVehicle");
 		return this.data.getHistoryFor(vehicleName);
 	}
 
 	@RequestMapping(method=RequestMethod.GET, value="/vehicles/")
 	public Collection<VehiclePosition> getUpdatedPositions(@RequestParam(value="since", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date since)
 	{
+		System.out.println("Inside getUpdatedPositions");
 		Collection<VehiclePosition> results = data.getLatestPositionsOfAllVehiclesUpdatedSince(since);
 		return results;
 	}
